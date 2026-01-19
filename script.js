@@ -1,28 +1,40 @@
-// Smooth scroll for navigation links
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
+// Mobile Menu Toggle
+const menuBtn = document.querySelector('.menu-btn');
+const navLinks = document.querySelector('.nav-links');
+
+menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+});
+
+// Smooth Scrolling for Navigation Links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        target.scrollIntoView({ behavior: 'smooth' });
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+        // Close mobile menu after click
+        navLinks.classList.remove('active');
     });
 });
 
-// Contact form validation and success message
-const contactForm = document.getElementById('contactForm');
-const formMessage = document.getElementById('formMessage');
+// Contact Form Submission Alert
+const contactForm = document.getElementById('contact-form');
 
-contactForm.addEventListener('submit', function(e) {
+contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    // Basic validation (already required in HTML, but extra flair)
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const message = document.getElementById('message').value.trim();
+    alert('Thank you for your message! I will get back to you soon.');
+    contactForm.reset();
+});
 
-    if (name && email && message) {
-        formMessage.textContent = `Arigato, ${name}! Your summoning scroll has been sent. Dattebayo!`;
-        contactForm.reset();
+// Navbar Scroll Effect
+window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+        navbar.style.backgroundColor = '#ffffff';
+        navbar.style.boxShadow = '0 4px 15px rgba(0,0,0,0.15)';
     } else {
-        formMessage.textContent = "Please fill out all fields, young shinobi!";
-        formMessage.style.color = "#d32f2f";
+        navbar.style.backgroundColor = '#ffffff';
+        navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
     }
 });
